@@ -1,0 +1,25 @@
+# https://lefthook.dev
+# Hooks are installed via `pnpm exec lefthook install` (lefthook's postinstall
+# is disabled in pnpm-workspace.yaml, so install is explicit).
+
+pre-commit:
+  parallel: false
+  commands:
+    lint:
+      priority: 1
+      glob: "*.{ts,mts,cts,js,mjs,cjs}"
+      run: deno lint --fix {staged_files}
+      stage_fixed: true
+    format:
+      priority: 2
+      glob: "*.{ts,mts,cts,js,mjs,cjs}"
+      run: deno fmt {staged_files}
+      stage_fixed: true
+
+pre-push:
+  parallel: true
+  commands:
+    typecheck:
+      run: deno check
+    test:
+      run: deno test --allow-read

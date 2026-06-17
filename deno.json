@@ -1,0 +1,49 @@
+{
+  "name": "@hyjk2000/jingu",
+  "version": "0.1.0",
+  "license": "MIT",
+  "tasks": {
+    "jingu": "deno --allow-read src/adapters/claude-code/cli.ts",
+    "embed:wasm": "deno run --allow-read --allow-write scripts/embed-wasm.ts"
+  },
+  "imports": {
+    "@std/expect": "jsr:@std/expect@^1.0.19",
+    "@std/fs": "jsr:@std/fs@^1.0.24",
+    "@std/path": "jsr:@std/path@^1.1.5",
+    "@std/testing": "jsr:@std/testing@^1.0.19",
+    "picomatch": "npm:picomatch@^4.0.4",
+    "tree-sitter-bash": "npm:tree-sitter-bash@^0.25.1",
+    "web-tree-sitter": "npm:web-tree-sitter@^0.26.9",
+    "#/": "./src/",
+    "#policy": "./policy.ts"
+  },
+  "exports": {
+    ".": "./index.ts",
+    "./policy": "./policy.ts",
+    "./claude-cli": "./src/adapters/claude-code/cli.ts"
+  },
+  "fmt": {
+    "lineWidth": 100
+  },
+  "publish": {
+    "include": [
+      "index.ts",
+      "policy.ts",
+      "src",
+      "vendor/wasm.gen.ts",
+      "README.md",
+      "LICENSE",
+      "deno.json"
+    ]
+  },
+  "nodeModulesDir": "auto",
+  "allowScripts": {
+    "allow": [],
+    "deny": [
+      "npm:esbuild@0.27.7",
+      "npm:fsevents@2.3.3",
+      "npm:lefthook@2.1.9",
+      "npm:tree-sitter-bash@0.25.1"
+    ]
+  }
+}
