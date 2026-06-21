@@ -1,3 +1,17 @@
+/**
+ * Command-line adapter for running Jingu from Claude Code hooks or a terminal.
+ *
+ * The executable supports `hook`, `check`, and `test` subcommands. The `hook`
+ * subcommand reads a Claude Code `PreToolUse` payload from stdin, while `check`
+ * evaluates a command string directly for local debugging.
+ *
+ * @example
+ * ```sh
+ * deno run --allow-read jsr:@hyjk2000/jingu/claude-cli check "rm -rf /"
+ * ```
+ *
+ * @module claude_cli
+ */
 import { resolve, toFileUrl } from "@std/path";
 import { runHook } from "./hook.ts";
 import { buildRuntime } from "#/runtime.ts";
@@ -13,6 +27,20 @@ async function loadConfig(argv: string[]): Promise<JinguConfig> {
   return (mod.default ?? {}) as JinguConfig;
 }
 
+/**
+ * Evaluate a shell command with the same runtime used by the CLI.
+ *
+ * This is primarily useful for tests and for embedding the CLI behavior in
+ * development tooling. A command with no matching policy returns exit code `0`
+ * and a "no opinion" message; an `ask` verdict also exits `0`, while a `deny`
+ * verdict exits `1`.
+ *
+ * @param command Shell command text to parse and evaluate.
+ * @param config Optional Jingu configuration. Built-in policies are included
+ * by default and custom policy directories are loaded from `config.policies`.
+ * @returns Text suitable for terminal output and the corresponding process
+ * exit code.
+ */
 export async function checkCommand(
   command: string,
   config: JinguConfig = {},

@@ -20,7 +20,7 @@ Currently, [Deno](https://deno.com) is the only supported runtime.
 The package is published to [JSR](https://jsr.io/@hyjk2000/jingu) as `@hyjk2000/jingu`.
 
 ```sh
-deno run --allow-read jsr:@hyjk2000/jingu@0.1.0/claude-cli hook --config ./.claude/jingu.config.ts
+deno run --allow-read jsr:@hyjk2000/jingu@0.1.1/claude-cli hook --config ./.claude/jingu.config.ts
 ```
 
 ## Wire it into Claude Code
@@ -36,7 +36,7 @@ Add a `PreToolUse` hook in your Claude Code settings (`.claude/settings.json`):
         "hooks": [
           {
             "type": "command",
-            "command": "deno run --allow-read jsr:@hyjk2000/jingu@0.1.0/claude-cli hook --config ${CLAUDE_PROJECT_DIR}/.claude/jingu.config.ts",
+            "command": "deno run --allow-read jsr:@hyjk2000/jingu@0.1.1/claude-cli hook --config ${CLAUDE_PROJECT_DIR}/.claude/jingu.config.ts",
             "timeout": 10
           }
         ]
@@ -54,7 +54,7 @@ below). Omit it to run with the built-in defaults only.
 Invoke each subcommand with:
 
 ```sh
-deno run --allow-read jsr:@hyjk2000/jingu@0.1.0/claude-cli <subcommand>
+deno run --allow-read jsr:@hyjk2000/jingu@0.1.1/claude-cli <subcommand>
 ```
 
 | Command         | Description                                                       |
@@ -66,7 +66,7 @@ deno run --allow-read jsr:@hyjk2000/jingu@0.1.0/claude-cli <subcommand>
 Example:
 
 ```sh
-deno run --allow-read jsr:@hyjk2000/jingu@0.1.0/claude-cli check "rm -rf /"
+deno run --allow-read jsr:@hyjk2000/jingu@0.1.1/claude-cli check "rm -rf /"
 # DENY [rm-rf-protected] ...
 ```
 
@@ -84,7 +84,7 @@ import {
   type PolicyExamples,
   type PolicyMeta,
   type PolicyVerdict,
-} from "jsr:@hyjk2000/jingu@0.1.0/policy";
+} from "jsr:@hyjk2000/jingu@0.1.1/policy";
 
 export const meta: PolicyMeta = {
   description: "Confirm kubectl/helm against a prod context",
@@ -117,7 +117,7 @@ Point jingu at your policy directory via `policies` in `jingu.config.ts`:
 ```ts
 // jingu.config.ts
 import { join } from "jsr:@std/path@1";
-import { defineConfig } from "jsr:@hyjk2000/jingu@0.1.0";
+import { defineConfig } from "jsr:@hyjk2000/jingu@0.1.1";
 
 export default defineConfig({
   policies: [join(import.meta.dirname!, "policies")],

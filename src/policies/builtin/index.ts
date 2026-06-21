@@ -14,6 +14,15 @@ import * as git from "./git-destructive.policy.ts";
 import * as cron from "./crontab-persistence.policy.ts";
 import * as kill from "./broad-kill.policy.ts";
 
+/**
+ * Built-in policies loaded by the runtime before project-specific policies.
+ *
+ * The set targets high-risk shell patterns such as recursive deletion of
+ * protected paths, piping fetched or decoded data into interpreters, raw device
+ * writes, persistence through crontab, destructive Git operations, broad
+ * process termination, and secret exfiltration. Disable individual policies by
+ * id through `JinguConfig.disable`.
+ */
 export const defaultPolicies: PolicyModule[] = [
   rmRf,
   pipe,

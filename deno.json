@@ -1,6 +1,6 @@
 {
   "name": "@hyjk2000/jingu",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "tasks": {
     "jingu": "deno --allow-read src/adapters/claude-code/cli.ts",
